@@ -1,14 +1,14 @@
+import { AppDataSource } from '@database/data-source';
+import { BrandsModule } from '@modules/brands/brands.module';
+import { CategoriesModule } from '@modules/categories/categories.module';
+import { OrderItemsModule } from '@modules/order_items/order_items.module';
+import { OrdersModule } from '@modules/orders/orders.module';
+import { ProductsModule } from '@modules/products/products.module';
+import { UsersModule } from '@modules/users/users.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { BrandsModule } from './brands/brands.module';
-import { CategoriesModule } from './categories/categories.module';
-import { AppDataSource } from './database/data-source';
-import { OrderItemsModule } from './order_items/order_items.module';
-import { OrdersModule } from './orders/orders.module';
-import { ProductsModule } from './products/products.module';
-import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
