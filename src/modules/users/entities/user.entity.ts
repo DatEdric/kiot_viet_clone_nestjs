@@ -51,4 +51,7 @@ export class UserEntity {
   // Relationship mappings can be added here
   @OneToMany(() => OrderEntity, (order) => order.user)
   orders?: OrderEntity[];
+  userRoles: any;
+  notifications: any;
+  auditLogs: any;
 }
