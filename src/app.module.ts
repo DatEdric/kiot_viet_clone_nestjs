@@ -9,6 +9,10 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { SuppliersModule } from './suppliers/suppliers.module';
+import { SuppliersnestModule } from './g/suppliersnest/suppliersnest.module';
+import { SuppliersModule } from './modules/suppliers/suppliers.module';
+import { CustomersModule } from './modules/customers/customers.module';
 
 @Module({
   imports: [
@@ -19,6 +23,9 @@ import { AppService } from './app.service';
     BrandsModule,
     OrdersModule,
     OrderItemsModule,
+    SuppliersModule,
+    SuppliersnestModule,
+    CustomersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

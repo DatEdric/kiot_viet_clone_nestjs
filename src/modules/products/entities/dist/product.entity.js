@@ -11,6 +11,7 @@ var enums_1 = require("@common/enums");
 var brand_entity_1 = require("@modules/brands/entities/brand.entity");
 var category_entity_1 = require("@modules/categories/entities/category.entity");
 var order_item_entity_1 = require("@modules/order_items/entities/order_item.entity");
+var supplier_entity_1 = require("@modules/suppliers/entities/supplier.entity");
 var class_validator_1 = require("class-validator");
 var typeorm_1 = require("typeorm");
 var ProductEntity = /** @class */ (function () {
@@ -28,6 +29,10 @@ var ProductEntity = /** @class */ (function () {
         class_validator_1.IsNotEmpty()
     ], ProductEntity.prototype, "sku");
     __decorate([
+        typeorm_1.Column({ unique: true }),
+        class_validator_1.IsNotEmpty()
+    ], ProductEntity.prototype, "barcode");
+    __decorate([
         typeorm_1.Column('text', { nullable: true }),
         class_validator_1.IsOptional()
     ], ProductEntity.prototype, "description");
@@ -42,31 +47,58 @@ var ProductEntity = /** @class */ (function () {
         typeorm_1.JoinColumn({ name: 'brand_id' })
     ], ProductEntity.prototype, "brand");
     __decorate([
-        typeorm_1.Column('decimal', {
-            precision: 10,
-            scale: 2,
-            name: 'base_price'
-        })
-    ], ProductEntity.prototype, "basePrice");
+        typeorm_1.ManyToOne(function () { return supplier_entity_1.SupplierEntity; }, function (supplier) { return supplier.products; }, {
+            nullable: true
+        }),
+        typeorm_1.JoinColumn({ name: 'supplier_id' }),
+        class_validator_1.IsOptional()
+    ], ProductEntity.prototype, "supplier");
+    __decorate([
+        typeorm_1.Column('decimal', { precision: 10, scale: 2, name: 'cost_price' })
+    ], ProductEntity.prototype, "costPrice");
+    __decorate([
+        typeorm_1.Column('decimal', { precision: 10, scale: 2, name: 'retail_price' })
+    ], ProductEntity.prototype, "retailPrice");
     __decorate([
         typeorm_1.Column('decimal', {
             precision: 10,
             scale: 2,
-            name: 'sale_price',
+            name: 'wholesale_price',
             nullable: true
         }),
         class_validator_1.IsOptional()
-    ], ProductEntity.prototype, "salePrice");
+    ], ProductEntity.prototype, "wholesalePrice");
+    __decorate([
+        typeorm_1.Column('decimal', {
+            precision: 5,
+            scale: 2,
+            name: 'tax_rate',
+            "default": 0
+        })
+    ], ProductEntity.prototype, "taxRate");
     __decorate([
         typeorm_1.Column('decimal', {
             precision: 10,
             scale: 2,
-            name: 'cost_price'
-        })
-    ], ProductEntity.prototype, "costPrice");
+            nullable: true
+        }),
+        class_validator_1.IsOptional()
+    ], ProductEntity.prototype, "weight");
+    __decorate([
+        typeorm_1.Column({ type: 'varchar', length: 255, nullable: true }),
+        class_validator_1.IsOptional()
+    ], ProductEntity.prototype, "dimensions");
     __decorate([
         typeorm_1.Column({ name: 'stock_quantity' })
     ], ProductEntity.prototype, "stockQuantity");
+    __decorate([
+        typeorm_1.Column({ name: 'is_inventory_tracked', "default": true }),
+        class_validator_1.IsBoolean()
+    ], ProductEntity.prototype, "isInventoryTracked");
+    __decorate([
+        typeorm_1.Column({ name: 'is_active', "default": true }),
+        class_validator_1.IsBoolean()
+    ], ProductEntity.prototype, "isActive");
     __decorate([
         typeorm_1.Column({
             type: 'enum',
